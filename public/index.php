@@ -60,3 +60,4 @@ $response->send();
 $kernel->terminate($request, $response);
 
 require_once __DIR__.'/../config/init.php';
+new \App\SBlog\Core\BlogApp();
