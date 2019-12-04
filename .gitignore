@@ -8,6 +8,7 @@ _ide_helper.php
 /storage/*.key
 /storage/debugbar
 /public/vendor
+/public/uploads
 /vendor
 .env
 .env.backup
