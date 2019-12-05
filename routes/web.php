@@ -31,6 +31,9 @@ Route::group(['middleware' => ['status', 'auth']], function() {
     Route::group($groupData, function() {
         Route::resource('index', 'MainController')
             ->names('blog.admin.index');
+            
+        Route::resource('orders', 'OrderController')
+            ->names('blog.admin.orders');
                
     });
 });

@@ -27,12 +27,10 @@
                     <tr>
                         <td><a href="#">{{ $order->id }}</a></td>
                         <td><a href="#">{{ ucfirst($order->name) }}</a></td>
-                        <td> 
-                            <span class="label label-success">
+                        <td>    
                             @if ($order->status == 0)Новый @endif
                             @if ($order->status == 1)Завершен @endif
-                            @if ($order->status == 2)<b style="color: red">Удален</b> @endif
-                            </span>   
+                            @if ($order->status == 2)<b style="color: red">Удален</b> @endif 
                         </td>
                         <td>
                             <div class="sparkbar" data-color="#00a65a" data-height="20">
