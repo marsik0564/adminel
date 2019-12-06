@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use MetaTag;
 use App\Repositories\Admin\MainRepository;
 use App\Repositories\Admin\OrderRepository;
+use App\Models\Admin\Order;
 
 class OrderController extends AdminBaseController
 {
@@ -99,6 +100,19 @@ class OrderController extends AdminBaseController
         //
     }
 
+    public function change($id)
+    {
+        $result = $this->orderRepository->changeStatusOrder($id);
+        if ($result){
+            return redirect()
+                ->route('blog.admin.orders.edit', $id)
+                ->with(['success' => 'Успешно сохранено']);
+        } else {
+            return back()
+            ->withErrors(['msg' => 'ошибка сохранения']);
+        }
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -107,6 +121,20 @@ class OrderController extends AdminBaseController
      */
     public function destroy($id)
     {
-        //
+        $st = $this->orderRepository->changeStatusOrder($id, '2');
+        if ($st) {
+            $result = Order::destroy($id);
+            if ($result) {
+                return redirect()
+                    ->route('blog.admin.orders.index')
+                    ->with(['success' => "Запись №$id удалена"]); 
+            } else {
+                return back()
+                    ->withErrors(['msg' => 'ошибка удаления']);
+            }
+        } else {
+            return back()
+                ->withErrors(['msg' => 'ошибка изменения статуса']);
+        }
     }
 }

@@ -29,8 +29,10 @@
                                 </thead>
                                 <tbody>
                                 @forelse($paginator as $order)
-                                @php $class = $order->status ? 'success' : '' @endphp
-                                <tr class="{{ $class }}">
+                                <tr class="
+                                    @if($order->status==1)table-success
+                                    @elseif($order->status==2)table-danger
+                                    @endif">
                                     <td>{{ $order->id }}</td>
                                     <td>{{ $order->name }}</td>
                                     <td>
@@ -40,7 +42,7 @@
                                     </td>
                                     <td>{{ $order->sum .' '. $order->currency }}</td>
                                     <td>{{ $order->created_at }}</td>
-                                    <td>{{ $order->updated_at ?? $order->created_at}}</td>
+                                    <td>{{ $order->updated_at }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('blog.admin.orders.edit', $order->id) }}" 
                                             title="Редактировать заказ" >
@@ -54,14 +56,14 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center" colspan="3"><h2>Заказов нет</h2></td>
+                                    <td class="text-center" colspan="7"><h2>Заказов нет</h2></td>
                                 </tr>
                                 @endforelse
                                 </tbody>
                             </table>
                         </div>
                         <div class="text-center">
-                            <p>{{ count($paginator) }} Заказа(ов) из {{ $countOrders }}</p>
+                        <p>{{ $paginator->count() }} Заказа(ов) из {{ $paginator->total() }}</p>
                             @if ($paginator->total() > $paginator->count())
                             <div class="row justify-content-center">
                                 <div class="col-auto">

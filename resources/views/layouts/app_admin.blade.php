@@ -9,8 +9,8 @@
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" 
             name="viewport">
-        <!-- Bootstrap 3.3.7 -->
-        <link rel="stylesheet" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}">
+        <!-- Bootstrap 3.3.7 >
+        <link rel="stylesheet" href="{{asset('vendor/bootstrap/dist/css/bootstrap.min.css')}}">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{asset('vendor/font-awesome/css/font-awesome.min.css')}}">
         <!-- Ionicons -->
@@ -230,7 +230,7 @@
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <main id="app">
-                    <!--include('blog.admin.components.result_messages')-->
+                    @include('blog.admin.components.result_messages')
                     @yield('content')
                 </main>
             </div>
@@ -251,7 +251,7 @@
         <!-- jQuery 3 -->
         <script src="{{asset('vendor/jquery/jquery.min.js')}}"> </script>
         <!-- Bootstrap 3.3.7 -->
-        <script src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"> </script>
+        <script src="{{asset('vendor/bootstrap/dist/js/bootstrap.min.js')}}"> </script>
         <!-- Validator -->
         <script src="{{asset('js/validator.js')}}"> </script>
         <!-- Search -->
