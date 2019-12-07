@@ -258,6 +258,7 @@
         <!-- AdminLTE App -->
         <script src="{{asset('vendor/adminlte/dist/js/adminlte.min.js')}}"> </script>
         <!-- === = ===  -->
+        <script src="{{asset('js/my.js')}}"> </script>
         <script>
             $(function() {
                 $('.dropdown').click(function() {

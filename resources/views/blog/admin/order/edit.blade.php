@@ -6,22 +6,24 @@
         <h1>
             Редактировать
             Заказ №{{ $item->id }}
-            @if (!$order->status)
+            @if ($order->status == 0)
                 <a href="{{ route('blog.admin.orders.change', $item->id) }}/?status=1" 
                     class="btn btn-success btn-xs">
                     Обобрить
                 </a>
                 <a href="#" class="btn btn-warning btn-xs redact">Редактировать</a>
-            @else
+            @elseif ($order->status == 1)
                 <a href="{{ route('blog.admin.orders.change', $item->id) }}/?status=0" 
                     class="btn btn-secondary btn-xs">Вернуть на доработку</a>
-            @endif           
+            @endif  
+            @if ($order->status != 2)         
                 <form id="delform" method="post" class="d-inline-block"
                     action="{{ route('blog.admin.orders.destroy', $item->id) }}">
                     @method('DELETE')
                     @csrf
                     <button type="submit" class="btn btn-danger btn-xs delete">Удалить</button>
                 </form>
+            @endif
         </h1>
     
     
@@ -70,15 +72,20 @@
                                 </tr>
                                 <tr>
                                     <td>Статус</td>
-                                    <td>{{ $order->status ? 'Завершен' : 'Новый' }}</td>
+                                    <td>
+                                        @if ($order->status == 0)Новый @endif
+                                        @if ($order->status == 1)Завершен @endif
+                                        @if ($order->status == 2)
+                                        <b style="color: red">Удален</b> @endif
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Комментарий</td>
                                     <td>
-                                        <input type="text" name="comment"
-                                            value="{{ $order->note ?? ''}}"
-                                            placeholder="{{ !$order->note ?? 'Комментариев нет' }}"
-                                        />
+                                        <textarea name="comment" rows="3"  cols="40" style="resize:none"
+                                        placeholder="@if(!$order->note)Комментариев нет@endif"
+                                        >{{ $order->note ?? ''}}</textarea>
+                                        
                                     </td>
                                 </tr>
                                 </tbody>

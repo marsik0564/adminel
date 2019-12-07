@@ -64,10 +64,21 @@ class OrderRepository extends CoreRepository
             abort(404);
         }
         if (empty($status)) {
-            $item->status = !empty($_GET['status']) ? $_GET['status'] : '0';
+            $item->status =  $_GET['status'] ?? '0';
         } else {
             $item->status = $status;
         }
+        $result = $item->update();
+        return $result;
+    }
+    
+    public function saveOrderComment($id)
+    {
+        $item = $this->getId($id);
+        if (empty($item)) {
+            abort(404);
+        }
+        $item->note = $_POST['comment'] ?? null;
         $result = $item->update();
         return $result;
     }

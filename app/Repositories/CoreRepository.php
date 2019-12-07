@@ -20,7 +20,7 @@ abstract class CoreRepository
 
     public function getId($id)
     {
-        return $this->startConditions()->find($id);
+        return $this->startConditions()::withTrashed()->find($id);
     }
     
     public function getRequestId($get = true, $id = 'id')

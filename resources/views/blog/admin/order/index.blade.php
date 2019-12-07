@@ -48,7 +48,7 @@
                                             title="Редактировать заказ" >
                                             <i class="fa fa-fw fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('blog.admin.orders.edit', $order->id) }}" 
+                                        <a href="{{ route('blog.admin.orders.forcedestroy', $order->id) }}" 
                                             title="Удалить из БД" >
                                             <i class="fa fa-fw fa-close text-danger deletebd"></i>
                                         </a>

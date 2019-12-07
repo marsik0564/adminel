@@ -27,11 +27,11 @@
                     <tr>
                         <td><a href="#">{{ $order->id }}</a></td>
                         <td><a href="#">{{ ucfirst($order->name) }}</a></td>
-                        <td>    
-                            @if ($order->status == 0)Новый @endif
-                            @if ($order->status == 1)Завершен @endif
-                            @if ($order->status == 2)<b style="color: red">Удален</b> @endif 
-                        </td>
+                        <td><span class="label 
+                            @if ($order->status == 0)label-success"> Новый @endif
+                            @if ($order->status == 1)label-success"> Завершен @endif
+                            @if ($order->status == 2)label-danger"> <b style="color: red">Удален</b> @endif 
+                        </span></td>
                         <td>
                             <div class="sparkbar" data-color="#00a65a" data-height="20">
                                 {{ $order->sum }}
@@ -44,6 +44,8 @@
         </div>
     </div>
     <div class="box-footer clearfix mt-2">
-        <a href="#" class="btn btn-sm btn-info btn-flat pull-left">Все заказы</a>
+        <a href="{{ route('blog.admin.orders.index') }}" 
+            class="btn btn-sm btn-info btn-flat pull-left">
+            Все заказы</a>
     </div>
 </div>

@@ -41,7 +41,7 @@ Route::group(['middleware' => ['status', 'auth']], function() {
         Route::post('/orders/save/{id}', 'OrderController@save')
             ->name('blog.admin.orders.save');
             
-        Route::post('/orders/forcedestroy/{id}', 'OrderController@forceDestroy')
+        Route::get('/orders/forcedestroy/{id}', 'OrderController@forceDestroy')
             ->name('blog.admin.orders.forcedestroy');      
     });
 });

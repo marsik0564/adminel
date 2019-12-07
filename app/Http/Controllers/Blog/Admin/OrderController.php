@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminOrderSaveRequest;
 use Illuminate\Http\Request;
 use MetaTag;
 use App\Repositories\Admin\MainRepository;
@@ -33,6 +34,35 @@ class OrderController extends AdminBaseController
         return view('blog.admin.order.index', compact('countOrders', 'paginator'));
     }
 
+    public function save(AdminOrderSaveRequest $request, $id)
+    {
+        $result = $this->orderRepository->saveOrderComment($id);
+        if ($result) {
+            return redirect()
+                ->route('blog.admin.orders.edit', $id)
+                ->with(['success' => 'Успешно сохранено']);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'ошибка сохранения']);
+        }
+    }
+    
+    public function forcedestroy($id)
+    {
+        if (empty($id)) {
+            return back()
+                ->withErrors(['msg' => 'Запись не найдена']);
+        }
+        $result = Order::withTrashed()->find($id)->forceDelete();
+        if ($result) {
+            return redirect()
+                ->route('blog.admin.orders.index', $id)
+                ->with(['success' => 'Успешно удалено']);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка удаления']);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -74,7 +104,7 @@ class OrderController extends AdminBaseController
     public function edit($id)
     {
         $item = $this->orderRepository->getId($id);
-        if (empty($id)) {
+        if (empty($item->id)) {
             abort(404);
         }
         $order = $this->orderRepository->getOneOrder($item->id);
@@ -136,5 +166,5 @@ class OrderController extends AdminBaseController
             return back()
                 ->withErrors(['msg' => 'ошибка изменения статуса']);
         }
-    }
+    } 
 }
