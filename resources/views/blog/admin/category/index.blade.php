@@ -4,78 +4,33 @@
 
     <section class="content-header">
         @component('blog.admin.components.breadcrumbs');
-            @slot('title') Панель управления @endslot
+            @slot('title') Список меню категорий @endslot
             @slot('parent') Главная @endslot
-            @slot('active') Панель управления @endslot
+            @slot('active') Список меню категорий @endslot
         @endcomponent
     </section>
     <section class="content">
         <div class="row">
-            <div class="col-lg-6 col-xl-3">
-                <div class="small-box bg-aqua">
-                    <div class="inner">
-                        <h4>Кол-во заказов: {{ $countOrders ?? 0 }}</h4>
-                        <p>New orders</p>
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-body">
+                        <div class="w-100">
+                            <small class="ml-5"> 
+                                Для редактирования - нажмите на категорию.
+                            </small>
+                            <small class="ml-5"> 
+                                Невозможно удалить категорию, имеющую наследника или товары.
+                            </small>
+                        </div>
+                        @if (isset($menu))
+                            <div class="list-group list-group-root well mt-2">
+                                @include('blog.admin.category.menu.customMenuItems', 
+                                    ['items' => $menu->roots()])
+                            </div>
+                        @endif
                     </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="{{ route('blog.admin.orders.index') }}" class="small-box-footer">
-                        More info <i class="fa fa-arrow-circle-right"></i>
-                    </a>
                 </div>
             </div>
-        <div class="col-lg-6 col-xl-3">
-            <div class="small-box bg-green">
-                <div class="inner">
-                    <h4>Кол-во продуктов: {{ $countProducts ?? 0 }}</h4>
-                    <p>New products</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                    More info
-                    <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-            <div class="col-lg-6 col-xl-3">
-                <div class="small-box bg-yellow">
-                    <div class="inner">
-                        <h4>Кол-во юзеров: {{ $countUsers ?? 0}}</h4>
-                        <p>Users Regisrations</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        More info <i class="fa fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xl-3">
-                <div class="small-box bg-red">
-                    <div class="inner">
-                        <h4>Кол-во категорий: {{ $countCategories ?? 0}}</h4>
-                        <p>Categories</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        More info
-                        <i class="fa fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-6">
-                @include('blog.admin.main.include.orders')
-            </div>
-            <div class="col-md-6">
-                @include('blog.admin.main.include.recently')
-            </div>
-        </div>
-  
+        </div>  
     </section>
 @endsection

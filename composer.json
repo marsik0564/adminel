@@ -13,7 +13,8 @@
         "fomvasss/laravel-meta-tags": "^3.0",
         "jeroennoten/laravel-adminlte": "^3.0",
         "laravel/framework": "^6.2",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "lavary/laravel-menu": "^1.7"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

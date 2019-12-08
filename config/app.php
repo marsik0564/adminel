@@ -177,7 +177,7 @@ return [
 
         //My providers for this project
        //Torann\LaravelMetaTags\MetaTagsServiceProvider::class,
-        
+        Lavary\Menu\ServiceProvider::class,
     ],
 
     /*
@@ -231,7 +231,7 @@ return [
         
         //My aliases
         'MetaTag' => Fomvasss\LaravelMetaTags\Facade::class,
-        
+        'LavMenu'    => Lavary\Menu\Facade::class,
     ],
 
 ];
