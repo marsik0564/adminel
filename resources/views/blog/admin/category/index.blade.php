@@ -4,9 +4,9 @@
 
     <section class="content-header">
         @component('blog.admin.components.breadcrumbs');
-            @slot('title') Список меню категорий @endslot
+            @slot('title') Список категорий @endslot
             @slot('parent') Главная @endslot
-            @slot('active') Список меню категорий @endslot
+            @slot('active') Список категорий @endslot
         @endcomponent
     </section>
     <section class="content">

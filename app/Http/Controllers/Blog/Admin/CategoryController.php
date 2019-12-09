@@ -32,9 +32,39 @@ class CategoryController extends AdminBaseController
         return view('blog.admin.category.index', ['menu' => $menu]);
     }
     
+    /**
+    * @throws \Exception
+    */
     public function mydel()
     {
-        //
+        $id = $this->categoryRepository->getRequestID();
+        
+        if (empty($id)) {
+            return back()
+                ->withErrors(['msg' => 'ошибка идентификатора']);
+        }
+        
+        $children = $this->categoryRepository->checkChildren($id);
+        if (!empty($children)) {
+            return back()
+            ->withErrors(['msg' => 'Удаление невозможно, у выбранной категории есть вложенные категории']);
+        }
+        
+        $parent = $this->categoryRepository->checkParentsProducts($id);
+        if (!empty($parent)) {
+            return back()
+            ->withErrors(['msg' => 'Удаление невозможно, в категории есть товары']);
+        }
+        
+        $delete = $this->categoryRepository->deleteCategory($id);
+        if (!empty($delete)) {
+            return redirect()
+            ->route('blog.admin.categories.index')
+            ->with(['success' => "Запись №$id удалена"]);
+        } else {
+            return back()
+            ->withErrors(['msg' => 'ошибка удаления']);
+        }
     }
 
     /**
@@ -44,7 +74,17 @@ class CategoryController extends AdminBaseController
      */
     public function create()
     {
-        //
+        $item = new Category();
+        $categoryList = $this->categoryRepository->getComboBoxCategories();
+        
+        Metatag::setTags(['title' => 'Создание новой категории']);
+        return view('blog.admin.category.create',[
+            'categories' => Category::with('children')
+                ->where('parent_id', '=', '0')
+                ->get(),
+            'delimiter' => '-',
+            'item' => $item,
+        ]);
     }
 
     /**
