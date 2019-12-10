@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use MetaTag;
 use App\Repositories\Admin\CategoryRepository;
 use App\Models\Admin\Category;
+use App\Http\Requests\BlogCategoryUpdateRequest;
 
 class CategoryController extends AdminBaseController
 {
@@ -93,9 +94,29 @@ class CategoryController extends AdminBaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlogCategoryUpdateRequest $request)
     {
-        //
+        $name = $this->categoryRepository->checkUniqueName($request->title, $request->parent_id);
+        
+        if (!empty($name)) {
+            return back()
+                ->withErrors(['msg' => 'В одной категории не может быть двух одинаковых имен.'])
+                ->withInput();
+        }
+        
+        $data = $request->input();
+        $item = new Category();
+        $result = $item->fill($data)->save();
+        
+        if (!empty($result)) {
+            return redirect()
+                ->route('blog.admin.categories.create', [$item->id])
+                ->with(['success' => "Успешно сохранено"]);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**
@@ -117,7 +138,7 @@ class CategoryController extends AdminBaseController
      */
     public function edit($id)
     {
-        //
+        dd(__METHOD__, $id);
     }
 
     /**

@@ -75,4 +75,13 @@ class CategoryRepository extends CoreRepository
             ->get();
         return $result;
     }
+    
+    public function checkUniqueName($name, $parent_id)
+    {
+        $result = $this->startConditions()
+            ->where('title', '=', $name)
+            ->where('parent_id', '=', $parent_id)
+            ->exists();
+        return $result;
+    }
 }
