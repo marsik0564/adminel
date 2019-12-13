@@ -2,7 +2,7 @@
     <option value="{{ $category_list->id ?? ''}}"
         @isset($item->id)
             @if ($category_list->id == $item->parent_id) selected @endif
-            @if ($category_list->id == $item->id) disabled @endif
+            @if ($category_list->id == $item->id || $noLoop) disabled @endif
         
         @endisset
     > {!! $delimiter ?? '' !!} {{ $category_list->title }}
@@ -12,6 +12,7 @@
         [
             'categories' => $category_list->children,
             'delimiter' => '-' . $delimiter,
+            'noLoop' => ($category_list->id == $item->id || $noLoop),
         ])
     @endif
 @endforeach

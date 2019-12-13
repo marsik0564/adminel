@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use MetaTag;
 use App\Repositories\Admin\CategoryRepository;
 use App\Models\Admin\Category;
+use App\Http\Requests\BlogCategoryCreateRequest;
 use App\Http\Requests\BlogCategoryUpdateRequest;
 
 class CategoryController extends AdminBaseController
@@ -26,8 +27,9 @@ class CategoryController extends AdminBaseController
     public function index()
     {
         $arrMenu = Category::all();
+        //dd($arrMenu);
         $menu = $this->categoryRepository->buildMenu($arrMenu);
-        
+        //dd($menu);
         Metatag::setTags(['title' => 'Список категорий']);
         
         return view('blog.admin.category.index', ['menu' => $menu]);
@@ -94,7 +96,7 @@ class CategoryController extends AdminBaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BlogCategoryUpdateRequest $request)
+    public function store(BlogCategoryCreateRequest $request)
     {
         $name = $this->categoryRepository->checkUniqueName($request->title, $request->parent_id);
         
@@ -110,7 +112,7 @@ class CategoryController extends AdminBaseController
         
         if (!empty($result)) {
             return redirect()
-                ->route('blog.admin.categories.create', [$item->id])
+                ->route('blog.admin.categories.edit', [$item->id])
                 ->with(['success' => "Успешно сохранено"]);
         } else {
             return back()
@@ -138,7 +140,19 @@ class CategoryController extends AdminBaseController
      */
     public function edit($id)
     {
-        dd(__METHOD__, $id);
+        $item = $this->categoryRepository->getID($id);
+        if (empty($item)) {
+            abort(404);
+        }    
+        
+        Metatag::setTags(['title' => "Редактирование категории №$id"]);
+        return view('blog.admin.category.edit',[
+            'categories' => Category::with('children')
+                ->where('parent_id', '=', '0')
+                ->get(),
+            'delimiter' => '-',
+            'item' => $item,
+        ]);
     }
 
     /**
@@ -148,9 +162,27 @@ class CategoryController extends AdminBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BlogCategoryUpdateRequest $request, $id)
     {
-        //
+        $item = $this->categoryRepository->getID($id);
+        if (empty($item)) {
+            return back()
+                ->withErrors(['msg' => "Запись N$id не найдена"])
+                ->withInput;
+        }    
+        
+        $data = $request->all();
+        $result = $item->update($data);
+        
+        if (!empty($result)) {
+            return redirect()
+                ->route('blog.admin.categories.edit', [$item->id])
+                ->with(['success' => "Успешно сохранено"]);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**

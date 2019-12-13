@@ -4,18 +4,19 @@
 
     <section class="content-header">
         @component('blog.admin.components.breadcrumbs');
-            @slot('title') Создание новой категории @endslot
+            @slot('title') Редактирование категории {{ $item->title }} @endslot
             @slot('parent') Главная @endslot
             @slot('category') Список категорий @endslot
-            @slot('active') Создание новой категории @endslot
+            @slot('active') Редактирование категории {{ $item->title }} @endslot
         @endcomponent
     </section>
     <section class="content">
         <div class="row">
             <div class="col-md-12">
                 <div class="box">
-                    <form action="{{ route('blog.admin.categories.store') }}" 
+                    <form action="{{ route('blog.admin.categories.update', $item->id) }}" 
                         method="post" data-toggle="validator">
+                        @method('PATCH')
                         @csrf
                         <div class="box-body">
                             <div class="form-group has-feedback">
@@ -50,7 +51,7 @@
                                 />
                             </div>
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-success">Добавить</button>
+                                <button type="submit" class="btn btn-success">Редактировать</button>
                             </div>
                         </div>
                     </form>

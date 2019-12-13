@@ -43,7 +43,7 @@ class OrderController extends AdminBaseController
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
-                ->withErrors(['msg' => 'ошибка сохранения']);
+                ->withErrors(['msg' => 'Ошибка сохранения']);
         }
     }
     
@@ -139,7 +139,7 @@ class OrderController extends AdminBaseController
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
-            ->withErrors(['msg' => 'ошибка сохранения']);
+            ->withErrors(['msg' => 'Ошибка сохранения']);
         }
     }
     
@@ -160,11 +160,11 @@ class OrderController extends AdminBaseController
                     ->with(['success' => "Запись №$id удалена"]); 
             } else {
                 return back()
-                    ->withErrors(['msg' => 'ошибка удаления']);
+                    ->withErrors(['msg' => 'Ошибка удаления']);
             }
         } else {
             return back()
-                ->withErrors(['msg' => 'ошибка изменения статуса']);
+                ->withErrors(['msg' => 'Ошибка изменения статуса']);
         }
     } 
 }

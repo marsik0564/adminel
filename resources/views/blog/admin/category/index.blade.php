@@ -23,7 +23,7 @@
                             </small>
                         </div>
                         @if (isset($menu))
-                            <div class="list-group list-group-root well mt-2">
+                            <div class="list-group-root well mt-2">
                                 @include('blog.admin.category.menu.customMenuItems', 
                                     ['items' => $menu->roots()])
                             </div>
