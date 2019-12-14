@@ -27,9 +27,9 @@ class CategoryController extends AdminBaseController
     public function index()
     {
         $arrMenu = Category::all();
-        //dd($arrMenu);
+
         $menu = $this->categoryRepository->buildMenu($arrMenu);
-        //dd($menu);
+
         Metatag::setTags(['title' => 'Список категорий']);
         
         return view('blog.admin.category.index', ['menu' => $menu]);
@@ -116,7 +116,7 @@ class CategoryController extends AdminBaseController
                 ->with(['success' => "Успешно сохранено"]);
         } else {
             return back()
-                ->withErrors(['msg' => 'ошибка сохранения'])
+                ->withErrors(['msg' => 'Ошибка сохранения'])
                 ->withInput();
         }
     }
