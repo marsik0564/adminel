@@ -13,7 +13,7 @@ class AdminUserEditRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,26 @@ class AdminUserEditRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $_POST['id'];
         return [
-            //
+            'name' => 'required|min:3|max:20|string',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users,email,' . $id,
+            ],
+            'password' => 'nullable|string|min:8|max:20|confirmed',
+        ];
+    }
+    
+    public function messages()
+    {
+        return [
+            'name.min' => 'Минимальная длина имени 3 символа',
+            'email.unique' => 'Такой email уже занят',
+            'password.confirmed' => 'Пароли не совпадают',
         ];
     }
 }

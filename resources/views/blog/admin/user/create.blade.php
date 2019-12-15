@@ -57,7 +57,6 @@
                                 </select>
                             </div>
                             <div class="box-footer">
-                                <input type="hidden" name="id" value="" />
                                 <button type="submit" class="btn btn-primary">Сохранить</button>
                             </div>
                         </div>

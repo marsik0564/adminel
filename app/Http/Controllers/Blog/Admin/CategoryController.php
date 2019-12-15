@@ -66,7 +66,7 @@ class CategoryController extends AdminBaseController
             ->with(['success' => "Запись №$id удалена"]);
         } else {
             return back()
-            ->withErrors(['msg' => 'ошибка удаления']);
+            ->withErrors(['msg' => 'Ошибка удаления']);
         }
     }
 
@@ -112,7 +112,7 @@ class CategoryController extends AdminBaseController
         
         if (!empty($result)) {
             return redirect()
-                ->route('blog.admin.categories.edit', [$item->id])
+                ->route('blog.admin.categories.edit', $item->id)
                 ->with(['success' => "Успешно сохранено"]);
         } else {
             return back()

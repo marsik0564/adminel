@@ -8,6 +8,7 @@ use App\Repositories\Admin\UserRepository;
 use App\Repositories\Admin\MainRepository;
 use MetaTag;
 use App\Http\Requests\AdminUserCreateRequest;
+use App\Http\Requests\AdminUserEditRequest;
 use App\Models\Admin\User;
 use App\Models\UserRole;
 
@@ -103,29 +104,65 @@ class UserController extends AdminBaseController
      */
     public function edit($id)
     {
-        dd(__METHOD__, $id);
+        $perpage = 10;
+        $item = $this->userRepository->getID($id);
+        if (empty($item)) {
+            abort(404);
+        }
+        
+        $orders = $this->userRepository->getUserOrders($id, $perpage);
+        $role = $this->userRepository->getUserRole($id);
+        $count = $this->userRepository->getCountOrders($id);
+        Metatag::setTags(['title' => "Редактирование пользователя №{$item->id}"]);
+        return view('blog.admin.user.edit', compact('orders', 'role', 'count',  'item'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  App\Http\Requests\AdminUserEditRequest  $request
+     * @param  App\Models\Admin\User $user
+     * @param  App\Models\Admin\UserRole $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminUserEditRequest $request, User $user, UserRole $role )
     {
-        dd(__METHOD__);
+
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        if (!empty($request['password'])){
+            $user->password = bcrypt($request['password']);
+        }
+        $save = $user->save();
+        
+        if (!empty($save)) {
+            $role->where('user_id', '=', $user->id)->update(['role_id' => (int)$request['role'] ]);
+            return redirect()
+                ->route('blog.admin.users.edit', $user->id)
+                ->with(['success' => "Успешно сохранено"]);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  App\Models\Admin\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        dd(__METHOD__);
+        $result = $user->forceDelete();
+        if ($result){
+            return redirect()
+                ->route('blog.admin.users.index')
+                ->with(['success' => "Пользователь {$user->name} успешно удален"]);
+        } else {
+            return back()
+            ->withErrors(['msg' => 'Ошибка удаления']);
+        }
     }
 }
