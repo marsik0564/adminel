@@ -76,7 +76,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="{{route('blog.admin.index.index',Auth::user()->id)}}" 
+                                            <a href="{{route('blog.admin.users.edit', Auth::user()->id)}}" 
                                             class="btn btn-default btn-flat">Профиль</a>
                                         </div>
                                         <div class="pull-right">
@@ -162,9 +162,15 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="">Список товаров</a></li>
+                                    <a href="{{ route('blog.admin.products.index') }}">
+                                        Список товаров
+                                    </a>
+                                </li>
                                 <li>
-                                    <a href="">Добавить товар</a></li>
+                                    <a href="{{ route('blog.admin.products.create') }}">
+                                        Добавить товар
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li>
@@ -272,12 +278,5 @@
         <script src="{{asset('vendor/adminlte/dist/js/adminlte.min.js')}}"> </script>
         <!-- === = ===  -->
         <script src="{{asset('js/my.js')}}"> </script>
-        <script>
-            $(function() {
-                $('.dropdown').click(function() {
-                    $('.dropdown .dropdown-menu').toggleClass('show');
-                });
-            });
-        </script>
     </body>
 </html>

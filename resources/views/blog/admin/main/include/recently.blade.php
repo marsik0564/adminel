@@ -33,6 +33,8 @@
         </ul>
     </div>
     <div class="box-footer clearfix mt-2">
-        <a href="#" class="btn btn-sm btn-info btn-flat pull-left">Все продукты</a>
+        <a href="{{ route('blog.admin.products.index') }}" class="btn btn-sm btn-info btn-flat pull-left">
+            Все продукты
+        </a>
     </div>
 </div>
