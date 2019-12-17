@@ -22,7 +22,7 @@
                                 <label for="title">Наименование категории</label>    
                                 <input type="text" name="title" class="form-control" id="title"
                                     placeholder="Наименование категории" required 
-                                    value="{{ old('title', $item->title) }}" 
+                                    value="{{ old('title') }}" 
                                 />
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
@@ -38,7 +38,7 @@
                                 <input type="text" name="keywords" id="keywords" 
                                     class="form-control" required
                                     placeholder="Ключевые слова" 
-                                    value="{{ old('keywords', $item->keywords) }}" 
+                                    value="{{ old('keywords') }}" 
                                 />
                             </div>
                             <div class="form-group">
@@ -46,7 +46,7 @@
                                 <input type="text" name="description" id="description" 
                                     class="form-control" required
                                     placeholder="Описание" 
-                                    value="{{ old('description', $item->description) }}" 
+                                    value="{{ old('description') }}" 
                                 />
                             </div>
                             <div class="box-footer">

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use MetaTag;
 use App\Repositories\Admin\ProductRepository;
 use App\Models\Admin\Product;
+use App\Models\Admin\Category;
 
 class ProductController extends AdminBaseController
 {
@@ -40,7 +41,16 @@ class ProductController extends AdminBaseController
      */
     public function create()
     {
-        dd(__METHOD__);
+        $item = new Category();
+        
+        Metatag::setTags(['title' => 'Создание нового продукта']);
+        return view('blog.admin.product.create', [
+            'categories' => Category::with('children')
+                ->where('parent_id', '=', '0')
+                ->get(),
+            'delimiter' => '-',
+            'item' => $item,
+        ]);
     }
 
     /**
