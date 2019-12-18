@@ -30,6 +30,9 @@ $('.sidebar-menu a').each(function(){
     }
 });
 
+/* CKEditor */
+$('#editor1').ckeditor();
+
 $('.dropdown').click(function() {
     $('.dropdown .dropdown-menu').toggleClass('show');
 });

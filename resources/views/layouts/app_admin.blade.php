@@ -276,7 +276,13 @@
         <!-- Search -->
         <!-- AdminLTE App -->
         <script src="{{asset('vendor/adminlte/dist/js/adminlte.min.js')}}"> </script>
+        <!-- ckeditor -->
+        <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
+        <script src="{{asset('vendor/ckeditor/adapters/jquery.js')}}"></script>
         <!-- === = ===  -->
         <script src="{{asset('js/my.js')}}"> </script>
+        <script>
+                $('#editor1').ckeditor();
+        </script>
     </body>
 </html>
