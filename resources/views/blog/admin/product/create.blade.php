@@ -81,6 +81,9 @@
                                     <input type="checkbox" name="hit" /> Хит
                                 </label>
                             </div>
+                            <div class="form-group">
+                                <label for="related">Фильтры продукта</label>
+                            </div>
                             <input type="hidden" id="_token" value="{{ csrf_token() }}" />
                         </div>
                         <div class="box-footer">
