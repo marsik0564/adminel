@@ -13,6 +13,8 @@
         <link rel="stylesheet" href="{{asset('vendor/bootstrap/dist/css/bootstrap.min.css')}}">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{asset('vendor/font-awesome/css/font-awesome.min.css')}}">
+        <!-- select для связанных товаров -->
+        <link rel="stylesheet" href="{{asset('vendor/select2/css/select2.min.css')}}">
         <!-- Ionicons -->
         <link rel="stylesheet" href="{{asset('vendor/ionicons/css/ionicons.min.css')}}">
         <!-- Theme style -->
@@ -279,10 +281,10 @@
         <!-- ckeditor -->
         <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
         <script src="{{asset('vendor/ckeditor/adapters/jquery.js')}}"></script>
+        <!-- select для связанных товаров -->
+        <script src="{{asset('vendor/select2/js/select2.full.min.js')}}"></script>
         <!-- === = ===  -->
         <script src="{{asset('js/my.js')}}"> </script>
-        <script>
-                $('#editor1').ckeditor();
-        </script>
+        @include('blog.admin.product.include.script_related_products')
     </body>
 </html>

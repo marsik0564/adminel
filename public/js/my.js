@@ -33,6 +33,12 @@ $('.sidebar-menu a').each(function(){
 /* CKEditor */
 $('#editor1').ckeditor();
 
+/* Сброс фильтров админка */
+$('#reset-filter').click(function(ev){
+    ev.preventDefault();
+    $('#filter input[type=radio]:checked').prop('checked', false);
+});
+
 $('.dropdown').click(function() {
     $('.dropdown .dropdown-menu').toggleClass('show');
 });
