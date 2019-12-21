@@ -38,4 +38,15 @@ class ProductRepository extends CoreRepository
          
         return $get_all;
     }
+    
+    public function getProducts($q, $limit)
+    {
+        $products = $this->startConditions()
+            ->select('id', 'title')
+            ->where('title', 'LIKE', ["%{$q}%"])
+            ->limit($limit)
+            ->get();
+            
+        return $products;
+    }
 }

@@ -286,5 +286,6 @@
         <!-- === = ===  -->
         <script src="{{asset('js/my.js')}}"> </script>
         @include('blog.admin.product.include.script_related_products')
+        @include('blog.admin.product.include.script_img')
     </body>
 </html>

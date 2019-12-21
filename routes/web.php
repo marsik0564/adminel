@@ -49,6 +49,11 @@ Route::group(['middleware' => ['status', 'auth']], function() {
         Route::resource('users', 'UserController')
             ->names('blog.admin.users');
             
+            
+        Route::get('/products/related','ProductController@related');  
+        Route::match(['get', 'post'], '/products/ajax-image-upload', 'ProductController@ajaxImageUpload');
+        Route::delete('/products/ajax-image-remove/{filename}', 'ProductController@ajaxImageRemove');
+ 
         Route::resource('products', 'ProductController')
             ->names('blog.admin.products');
     });

@@ -1,12 +1,11 @@
 <script>
     $(function(){
-        alert('!');
         $('.select2').select2({
             placeholder : 'Начните вводить наименование товара',
             cache       : true,
             ajax        : {
                 url            : "{{ url('/admin/products/related') }}",
-                delay          : 250,
+                delay          : 500,
                 dataType       : 'json',
                 data           : function (params) {
                     return {
