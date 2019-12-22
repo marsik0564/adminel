@@ -8,6 +8,7 @@ use MetaTag;
 use App\Repositories\Admin\ProductRepository;
 use App\Models\Admin\Product;
 use App\Models\Admin\Category;
+use App\SBlog\Core\BlogApp;
 
 class ProductController extends AdminBaseController
 {
@@ -130,12 +131,46 @@ class ProductController extends AdminBaseController
         echo json_encode($data);
         die;
     }
-    
-    public function ajaxImageUpload() {
-        
+    /**
+    * Ajax upload single image
+    * @param Request $request
+    */
+    public function ajaxImageUpload(Request $request) 
+    {
+        if ($request->isMethod('get')) {
+            return view('blog.admin.product.include.image_single_edit');
+        } else {
+            $valid = \Validator::make(
+                $request->all(), 
+                [
+                    'file' => 'image|max:5000',
+                ],
+                [
+                    'file.image' => 'Файл должен быть картинкой',
+                    'file.max' => 'Максимальный размер файла - 5Мб',
+                ]
+            );
+            if ($valid->fails()) {
+                return array (
+                    'fail' => true,
+                    'errors' => $valid->erorrs()
+                );
+            }
+            
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $dir = 'uploads/single/';
+            $filename = uniqid() . '_' . time() . '.' . $extension;
+            $request->file('file')->move($dir, $filename);
+            $wmax = BlogApp::get_instance()->getProperty('img_width');
+            $hmax = BlogApp::get_instance()->getProperty('img_height');
+            $this->productRepository->uploadImg($dir, $filename, $wmax, $hmax);
+            
+            return $filename;
+        }
     }
     
-    public function ajaxImageRemove() {
-        
+    public function ajaxImageRemove($filename) 
+    {
+        \File::delete('uploads/single/' . $filename);
     }
 }
