@@ -9,6 +9,7 @@ use App\Repositories\Admin\ProductRepository;
 use App\Models\Admin\Product;
 use App\Models\Admin\Category;
 use App\SBlog\Core\BlogApp;
+use App\Http\Requests\AdminImageUploadRequest;
 
 class ProductController extends AdminBaseController
 {
@@ -133,30 +134,13 @@ class ProductController extends AdminBaseController
     }
     /**
     * Ajax upload single image
-    * @param Request $request
+    * @param AdminImageUploadRequest $request
     */
-    public function ajaxImageUpload(Request $request) 
+    public function ajaxImageUpload(AdminImageUploadRequest $request) 
     {
         if ($request->isMethod('get')) {
             return view('blog.admin.product.include.image_single_edit');
         } else {
-            $valid = \Validator::make(
-                $request->all(), 
-                [
-                    'file' => 'image|max:5000',
-                ],
-                [
-                    'file.image' => 'Файл должен быть картинкой',
-                    'file.max' => 'Максимальный размер файла - 5Мб',
-                ]
-            );
-            if ($valid->fails()) {
-                return array (
-                    'fail' => true,
-                    'errors' => $valid->erorrs()
-                );
-            }
-            
             $extension = $request->file('file')->getClientOriginalExtension();
             $dir = 'uploads/single/';
             $filename = uniqid() . '_' . time() . '.' . $extension;
@@ -172,5 +156,14 @@ class ProductController extends AdminBaseController
     public function ajaxImageRemove($filename) 
     {
         \File::delete('uploads/single/' . $filename);
+    }
+    
+    /**
+    * Ajax gellery upload
+    * @param AdminImageUploadRequestd $request
+    */
+    public function gallery(AdminImageUploadRequest $request) 
+    {
+        
     }
 }

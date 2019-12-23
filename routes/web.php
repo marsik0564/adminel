@@ -53,7 +53,11 @@ Route::group(['middleware' => ['status', 'auth']], function() {
         Route::get('/products/related','ProductController@related');  
         Route::match(['get', 'post'], '/products/ajax-image-upload', 'ProductController@ajaxImageUpload');
         Route::delete('/products/ajax-image-remove/{filename}', 'ProductController@ajaxImageRemove');
- 
+        Route::post('/products/gallery', 'ProductController@gallery')
+            ->name('blog.admin.products.gallery');
+        Route::post('/products/delete-gallery', 'ProductController@deleteGallery')
+            ->name('blog.admin.products.deletegallery');
+            
         Route::resource('products', 'ProductController')
             ->names('blog.admin.products');
     });

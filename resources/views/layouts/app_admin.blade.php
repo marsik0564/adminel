@@ -283,9 +283,12 @@
         <script src="{{asset('vendor/ckeditor/adapters/jquery.js')}}"></script>
         <!-- select для связанных товаров -->
         <script src="{{asset('vendor/select2/js/select2.full.min.js')}}"></script>
+        <!-- Ajax upload -->
+        <script src="{{asset('js/ajaxupload.js')}}"></script>
         <!-- === = ===  -->
-        <script src="{{asset('js/my.js')}}"> </script>
+        <script src="{{asset('js/my.js')}}"></script>
         @include('blog.admin.product.include.script_related_products')
         @include('blog.admin.product.include.script_img')
+        @include('blog.admin.product.include.script_gallery')
     </body>
 </html>

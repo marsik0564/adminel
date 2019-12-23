@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminOrderSaveRequest extends FormRequest
+class AdminImageUploadRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,15 @@ class AdminOrderSaveRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment' => 'min:5|max:200',
+            'file' => 'image|max:5000',
         ];
-    
+    }
     
     public function messages()
     {
         return [
-            'comment.min' => 'Минимальная длина комментария равна 5 символов',
-            'comment.max' => 'Максимальная длина комментария равна 200 символов',
+            'file.image' => 'Ошибка! Файл должен быть картинкой',
+            'file.max' => 'Ошибка! Максимальный размер файла - 5Мб',
         ];
     }
 }

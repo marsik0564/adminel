@@ -86,7 +86,7 @@
                                 <p class="text-muted">
                                     <small>Начните вводить наименование товара...</small> 
                                 </p>
-                                <select name="related[]" class="select2 form-control" id="related" multiple>  
+                                <select name="related[]" class="w-100 select2 form-control" id="related" multiple>  
                                 </select>
                             </div>
                             <div class="form-group">

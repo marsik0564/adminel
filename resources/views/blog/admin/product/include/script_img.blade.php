@@ -33,7 +33,7 @@
                 };
             },
             error : function (xhr, status, error) {
-                alert(xhr.responseText);
+                alert(xhr.responseJSON.errors.file);
                 $('#preview_image').attr('src', "{{ asset('images/no_image.jpg') }}");
                 $('#loading').hide();
             }
