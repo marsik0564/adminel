@@ -18,6 +18,10 @@ class ProductRepository extends CoreRepository
         return Model::class;
     }
     
+    /**
+    * Get Last Products
+    */
+    
     public function getLastProducts($perpage)
     {
         $get = $this->startConditions()
@@ -27,6 +31,10 @@ class ProductRepository extends CoreRepository
         
         return $get;
     }
+    
+    /**
+    * Get All Products
+    */
     
     public function getAllProducts($perpage)
     {
@@ -39,6 +47,10 @@ class ProductRepository extends CoreRepository
         return $get_all;
     }
     
+    /**
+    * Get Products
+    */
+    
     public function getProducts($q, $limit)
     {
         $products = $this->startConditions()
@@ -50,6 +62,10 @@ class ProductRepository extends CoreRepository
         return $products;
     }
     
+     /**
+    * Upload and resize single image Ajax
+    */
+    
     public function uploadImg($dir, $name, $wmax, $hmax)
     {
         $ext = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $name));
@@ -59,6 +75,25 @@ class ProductRepository extends CoreRepository
         
     }
     
+    /**
+    * Upload and resize gallery Ajax
+    */
+    public function uploadGallery($dir, $name, $wmax, $hmax)
+    {
+        $ext = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $_FILES[$name]['name']));
+        $new_name = md5(time()) . ".$ext";
+        $uploadfile = $dir . $new_name;
+        \Session::push('gallery', $new_name);
+        if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadfile)) {
+            self::resize($uploadfile, $uploadfile, $wmax, $hmax, $ext);
+            $res = ['file' => $new_name];
+            echo json_encode($res);
+        }
+    }
+    
+    /**
+    * Image resize
+    */
     public static function resize($target, $dest, $wmax, $hmax, $ext)
     {
         list($w_orig, $h_orig) = getimagesize($target);

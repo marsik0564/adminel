@@ -4,6 +4,7 @@
             var buttonMulti = $('#multi'),
                 file;
             var _token = $('input#_token').val();
+            
             var form_data2 = new FormData();
             var overlay = buttonMulti.closest('.file-upload').find('.overlay');
             
@@ -28,18 +29,47 @@
                         overlay.show(); 
                     },
                     onComplete : function (file, response) {
-                        setTimeOut(function () {
+                        setTimeout(function () {
                            overlay.hide();
                            response = JSON.parse(response);
-                           $('.' + buttonMulti.data('name')).append('<img src="
-                               {{ asset('/uploads/gallery') }}/' + responce.file + 
-                               '" style="max-height: 150px;">');
+                           $('.multi').append('<img src="{{ asset('/uploads/gallery') }}/' 
+                               + response.file 
+                               + '" style="max-height: 150px;" '
+                               + 'class="m-1">');
                         }, 1000);
                     }
                 });
             }
             
             /*Для удаления картинок*/
+            $('.multi').on('click', '.del-items', function(){
+                var res = confirm('Подтвердите удаление');
+                if (!res) return false;
+                var $this = $(this);
+                id = $this.data(id);
+                src = $this.data(src);
+                $.ajax({
+                    headers : {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url : '{{ url('/admin/products/delete-gallery') }}',
+                    data : {
+                        id : id,
+                        src : src,
+                        _token : _token
+                    },
+                    type : 'POST',
+                    beforeSend : function() {
+                        overlay.show();
+                    },
+                    success : function() {
+                        setTimeout(function() {
+                            overlay.hide();
+                            if (res == 1) $this.fadeOut();
+                        }, 1000);
+                    }
+                });
+            });
         } 
     });
 </script>

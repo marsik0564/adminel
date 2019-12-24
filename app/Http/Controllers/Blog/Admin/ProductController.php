@@ -132,10 +132,12 @@ class ProductController extends AdminBaseController
         echo json_encode($data);
         die;
     }
+    
     /**
     * Ajax upload single image
     * @param AdminImageUploadRequest $request
     */
+    
     public function ajaxImageUpload(AdminImageUploadRequest $request) 
     {
         if ($request->isMethod('get')) {
@@ -153,6 +155,10 @@ class ProductController extends AdminBaseController
         }
     }
     
+    /**
+    * Delete single image
+    */
+    
     public function ajaxImageRemove($filename) 
     {
         \File::delete('uploads/single/' . $filename);
@@ -162,8 +168,29 @@ class ProductController extends AdminBaseController
     * Ajax gellery upload
     * @param AdminImageUploadRequestd $request
     */
-    public function gallery(AdminImageUploadRequest $request) 
+    
+    public function ajaxGalleryUpload(AdminImageUploadRequest $request) 
     {
-        
+        if (isset($_GET['upload'])) {
+            $wmax = BlogApp::get_instance()->getProperty('gallery_width');
+            $hmax = BlogApp::get_instance()->getProperty('gallery_height');
+            $name = $_POST['name'];
+            $dir = 'uploads/gallery/';
+            $this->productRepository->uploadGallery($dir, $name, $wmax, $hmax);
+        }
+    }
+    
+    public function ajaxGalleryDelete ()
+    {
+        $id = $_POST['id'] ?? null;
+        $src = $_POST['src'] ?? null;
+        if (!$id || !$src) {
+            return;
+        }
+        if (\DB::delete("DELETE FROM galleries WHERE product_id = ? AND img = ?", [$id, $src])) {
+            unlink("uploads/gallery/$src");
+            exit('1');
+        }
+        return;
     }
 }

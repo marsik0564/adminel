@@ -13,7 +13,7 @@
             <small>Рекомендуемые размеры: 700х1000</small>
         </p>
     </div>
-    <div class="overlay">
+    <div class="overlay" style="display: none">
         <i class="fa fa-refresh fa-spin"></i>
     </div>
 </div>
