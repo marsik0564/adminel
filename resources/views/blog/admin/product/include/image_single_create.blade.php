@@ -18,6 +18,6 @@
         </a>
     </p>
     <input type="file" id="file" style="display: none" />
-    <input type="hidden" id="file_name"/>
+    <input type="hidden" id="file_name" name="img"/>
     <p class="text-muted text-center"><small>Рекомендуемые размеры: 125х200</small></p>
 </div>

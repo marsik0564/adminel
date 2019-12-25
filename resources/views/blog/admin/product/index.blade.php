@@ -56,7 +56,7 @@
                                         @endif
                                         
                                         <a title="Удалить из БД" class="deletebd ml-2"
-                                        href="{{ route('blog.admin.orders.destroy', $product->id) }}"
+                                        href="{{ route('blog.admin.products.destroy', $product->id) }}"
                                         >
                                             <i class="fa fa-fw fa-close text-danger"></i>
                                         </a>

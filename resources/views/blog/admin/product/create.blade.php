@@ -27,8 +27,8 @@
                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
                             <div class="form-group">
-                                <label for="parent_id">Категория товара</label>
-                                <select name="parent_id" id="parent_id" class="form-control" required>
+                                <label for="category_id">Категория товара</label>
+                                <select name="category_id" id="category_id" class="form-control" required>
                                     <option disabled>-- Выберите категорию --</option>
                                     @include('blog.admin.category.include.edit_categories_all_list', 
                                     ['categories' => $categories, 'noLoop' => false])

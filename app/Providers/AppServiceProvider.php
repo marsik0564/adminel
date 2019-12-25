@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Admin\Category;
 use App\Observers\AdminCategoryObserver;
+use App\Models\Admin\Product;
+use App\Observers\AdminProductObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         //date_default_timezone_set('Europe/Kiev');
         Category::observe(AdminCategoryObserver::class);
+        Product::observe(AdminProductObserver::class);
     }
 }

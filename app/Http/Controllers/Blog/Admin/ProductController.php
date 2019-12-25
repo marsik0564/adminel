@@ -10,6 +10,7 @@ use App\Models\Admin\Product;
 use App\Models\Admin\Category;
 use App\SBlog\Core\BlogApp;
 use App\Http\Requests\AdminImageUploadRequest;
+use App\Http\Requests\AdminProductCreateRequest;
 
 class ProductController extends AdminBaseController
 {
@@ -58,12 +59,30 @@ class ProductController extends AdminBaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\AdminProductCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminProductCreateRequest $request)
     {
-        dd(__METHOD__);
+        $data = $request->input();
+        $data['status'] = $request->status ? '1' : '0';
+        $data['hit'] = $request->hit ? '1' : '0';
+        $data['brand_id'] = '0';
+        $product = (new Product())->create($data);
+        $id = $product->id;
+        $save = $product->save();
+        if (!empty($save)) {
+            //$this->productRepository->editFilter($id, $data);
+            //$this->productRepository->editRelatedProduct($id, $data);
+            //$this->productRepository->saveGallery($id);
+            return redirect()
+                ->route('blog.admin.products.index')
+                ->with(['success' => 'Успешно сохранено']);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**
