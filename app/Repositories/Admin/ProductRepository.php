@@ -91,6 +91,78 @@ class ProductRepository extends CoreRepository
         }
     }
     
+    public function editFilter($id, $data)
+    {
+        $filter = \DB::table('attribute_products')
+            ->where('product_id', '=', $id)
+            ->pluck('attr_id')
+            ->toArray();
+        $attrs = array_values($data['atrrs']);  
+          
+        if ($attrs != $filter) {
+            //если удалены старые фильтры
+            if (!empty(array_diff($filter, $attrs))) {
+                $sql_attrs = '('.implode(',', array_diff($filter, $attrs)).')';
+                \DB::table('attribute_products')
+                    ->where('product_id', '=', $id)
+                    ->where('attr_id', 'IN', $sql_attrs)
+                    ->delete();
+            }
+            //если добавлены новые фильтры
+            if (!empty(array_diff($attrs, $filter))) {
+                $sql_attrs = '';
+                foreach (array_diff($attrs, $filter) as $new_attr) {
+                    $sql_attrs .= "($new_attr, $id),";
+                }
+                $sql_attrs = rtrim($sql_attrs, ',');
+                \DB::insert("INSERT INTO attribute_products (attr_id, product_id) VALUES $sql_attrs");
+            }
+        }
+    }
+    
+    public function editRelatedProduct($id, $data)
+    {
+        $related_product_old = \DB::table('related_products')
+            ->select('related_id')
+            ->where('product_id', '=', $id)
+            ->pluck('related_id')
+            ->toArray();
+            
+        $related_product_new = $data['related'];
+        if ($related_product_new != $related_product_old) {
+            //если удалены старые рилейты
+            if (!empty(array_diff($related_product_old, $related_product_new))) {
+                $sql_related = '('.implode(',', array_diff($related_product_old, $related_product_new)).')';
+                \DB::table('related_products')
+                    ->where('product_id', '=', $id)
+                    ->where('related_id', 'IN', $sql_related)
+                    ->delete();
+            }
+            //если добавлены новые рилейты
+            if (!empty(array_diff($related_product_new, $related_product_old))) {
+                $sql_related = '';
+                foreach (array_diff($related_product_new, $related_product_old) as $new_related) {
+                    $sql_related .= "($new_related, $id),";
+                }
+                $sql_related = rtrim($sql_related, ',');
+                \DB::insert("INSERT INTO related_products (related_id, product_id) VALUES $sql_related");
+            }
+        }
+    }
+    
+    public function saveGallery($id)
+    {
+        if (!empty(\Session::get('gallery'))) {
+            $sql_gallery = '';
+            foreach (\Session::get('gallery') as $new_img) {
+                $sql_gallery .= "('$new_img', $id),";
+            }
+            $sql_gallery = rtrim($sql_gallery, ',');
+            \DB::insert("INSERT INTO galleries (img, product_id) VALUES $sql_gallery");
+            \Session::forget('gallery');
+        }
+    }
+    
     /**
     * Image resize
     */

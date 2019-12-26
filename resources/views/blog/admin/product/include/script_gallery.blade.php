@@ -31,6 +31,7 @@
                     onComplete : function (file, response) {
                         setTimeout(function () {
                            overlay.hide();
+                           response = response.slice(0, response.indexOf('}')+1);
                            response = JSON.parse(response);
                            $('.multi').append('<img src="{{ asset('/uploads/gallery') }}/' 
                                + response.file 

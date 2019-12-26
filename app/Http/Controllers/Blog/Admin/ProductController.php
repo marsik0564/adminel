@@ -68,13 +68,26 @@ class ProductController extends AdminBaseController
         $data['status'] = $request->status ? '1' : '0';
         $data['hit'] = $request->hit ? '1' : '0';
         $data['brand_id'] = '0';
+        /*$related_product = \DB::table('related_products')
+            ->select('related_id')
+            ->where('product_id', '=', '1')
+            ->pluck('related_id')
+            ->toArray();
+        dd($data, $related_product, array_diff($data['related'], $related_product), array_diff($related_product, $data['related']) );
+        $filter = \DB::table('attribute_products')
+            ->where('product_id', '=', '1')
+            ->pluck('attr_id')
+            ->toArray();
+            $attrs = array_values($data['atrrs']);
+                dd( $attrs == $filter, array_diff($attrs,$filter), array_diff($filter, $attrs));*/
         $product = (new Product())->create($data);
-        $id = $product->id;
+        $id = $product->id; 
         $save = $product->save();
         if (!empty($save)) {
-            //$this->productRepository->editFilter($id, $data);
-            //$this->productRepository->editRelatedProduct($id, $data);
-            //$this->productRepository->saveGallery($id);
+            $this->productRepository->editFilter($id, $data);
+            $this->productRepository->editRelatedProduct($id, $data);
+            $this->productRepository->saveGallery($id);
+            \Session::forget('single');
             return redirect()
                 ->route('blog.admin.products.index')
                 ->with(['success' => 'Успешно сохранено']);
