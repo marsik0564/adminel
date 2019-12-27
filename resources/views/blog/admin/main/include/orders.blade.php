@@ -25,8 +25,12 @@
                 <tbody>
                 @foreach($last_orders as $order)                    
                     <tr>
-                        <td><a href="#">{{ $order->id }}</a></td>
-                        <td><a href="#">{{ ucfirst($order->name) }}</a></td>
+                        <td><a href="{{ route('blog.admin.orders.edit', $order->id) }}">{{ $order->id }}</a></td>
+                        <td>
+                            <a href="{{ route('blog.admin.users.edit', $order->user_id) }}">
+                                {{ ucfirst($order->name) }}
+                            </a>
+                        </td>
                         <td><span class="label 
                             @if ($order->status == 0)label-success"> Новый @endif
                             @if ($order->status == 1)label-success"> Завершен @endif

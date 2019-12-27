@@ -164,6 +164,61 @@ class ProductRepository extends CoreRepository
     }
     
     /**
+    * Get info about product
+    */
+    
+    public function getInfoProduct($id)
+    {
+        $product = $this->startConditions()
+            ->find($id);
+        
+        return $product;
+    }
+    
+    /**
+    * Get filters for product
+    */
+    
+    public function getFiltersProduct($id)
+    {
+        $filter = \DB::table('attribute_products')
+            ->where('product_id', '=', $id)
+            ->pluck('attr_id')
+            ->all();
+            
+        return $filter;
+    }
+    
+    /**
+    * Get related products for product
+    */
+    
+    public function getRelatedProducts($id)
+    {
+        $related_products = $this->startConditions()
+            ->join('related_products', 'products.id', '=', 'related_products.related_id')
+            ->select('products.title', 'related_products.related_id')
+            ->where('related_products.product_id', '=', $id)
+            ->toBase()
+            ->get();
+            
+        return $related_products;
+    }
+    
+    /**
+    * Get gallery for product
+    */
+    public function getGalleryProduct($id)
+    {
+        $gallery = \DB::table('galleries')
+            ->where('product_id', $id)
+            ->pluck('img')
+            ->all();
+            
+        return $gallery;
+    }
+    
+    /**
     * Image resize
     */
     public static function resize($target, $dest, $wmax, $hmax, $ext)
