@@ -44,7 +44,6 @@ class ProductController extends AdminBaseController
      */
     public function create()
     {
-        $item = new Category();
         
         Metatag::setTags(['title' => 'Создание нового продукта']);
         return view('blog.admin.product.create', [
@@ -52,7 +51,6 @@ class ProductController extends AdminBaseController
                 ->where('parent_id', '=', '0')
                 ->get(),
             'delimiter' => '-',
-            'item' => $item,
         ]);
     }
 
@@ -123,14 +121,13 @@ class ProductController extends AdminBaseController
         $filter = $this->productRepository->getFiltersProduct($id);
         $related_products = $this->productRepository->getRelatedProducts($id);
         $images = $this->productRepository->getGalleryProduct($id);
-        dd($related_products, $images);
+        //dd($related_products, $filter);
         Metatag::setTags(['title' => 'Редактирование продукта №'.$id]);
         return view('blog.admin.product.edit', compact('product', 'filter', 'related_products', 'images'),[
             'categories' => Category::with('children')
                 ->where('parent_id', '=', '0')
                 ->get(),
             'delimiter' => '-',
-            'product' => $product,
         ]);
     }
 
@@ -166,13 +163,16 @@ class ProductController extends AdminBaseController
         $data['items'] = [];
         $limit = 8;
         $products = $this->productRepository->getProducts($q, $limit);
-        
+        $edited_product_id = $request->this_id ?? 0;
+         
         if (!empty($products)){
             $i = 0;
             foreach ($products as $product){
-                $data['items'][$i]['id'] = $product->id;
-                $data['items'][$i]['text'] = $product->title;
-                $i++;
+                if ($product->id != $edited_product_id) {
+                    $data['items'][$i]['id'] = $product->id;
+                    $data['items'][$i]['text'] = $product->title;
+                    $i++;
+                }
             }
         }
         echo json_encode($data);

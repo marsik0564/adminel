@@ -30,8 +30,8 @@
                                 <label for="category_id">Категория товара</label>
                                 <select name="category_id" id="category_id" class="form-control" required>
                                     <option disabled selected>-- Выберите категорию --</option>
-                                    @include('blog.admin.category.include.edit_categories_all_list', 
-                                    ['categories' => $categories, 'noLoop' => false])
+                                    @include('blog.admin.product.include.product_categories_all_list', 
+                                    ['categories' => $categories])
                                 </select>
                             </div>
                             <div class="form-group">
@@ -62,7 +62,8 @@
                                 <label for="old_price">Старая цена</label>    
                                 <input type="text" name="old_price" class="form-control" id="old_price"
                                     placeholder="Старая цена" pattern="^[0-9]+.?[0-9]*$"
-                                    value="{{ old('price') }}" data-error="Допускаются цифры и одна десятичная точка"
+                                    value="{{ old('old_price') }}" 
+                                    data-error="Допускаются цифры и одна десятичная точка"
                                 />
                                 <div class="help-block with-errors"></div>
                             </div>

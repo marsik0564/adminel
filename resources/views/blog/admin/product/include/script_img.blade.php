@@ -4,7 +4,7 @@
     }
    
     $('#file').change(function() {
-        if ($('#file_name').val() != '') removeFile()
+        if ($('#file_name').val() != '' && empty($('.myimg').data('name'))) removeFile()
         if ($(this).val() != '') {
             upload(this);  
         }
@@ -63,5 +63,9 @@
                 }
             });
         }
+    }
+    
+    function deleteFile() {
+        alert('Не надо так');
     }
 </script>

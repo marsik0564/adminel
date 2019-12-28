@@ -10,7 +10,8 @@
                 data           : function (params) {
                     return {
                         q       : params.term,
-                        page    : params.page
+                        page    : params.page,
+                        this_id : $('#product_id').val()
                     };
                 },
                 processResults : function (data, params) {
