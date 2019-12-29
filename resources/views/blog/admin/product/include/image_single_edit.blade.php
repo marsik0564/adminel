@@ -17,18 +17,12 @@
         <a href="javascript:changeProfile()" style="text-decoration: none" data-name="single">
             <i class="fa fa-image"></i>Загрузить
         </a>
-        @if (!empty($product->img))
-        <a href="javascript:deleteFile()" style="color: red; text-decoration: none" class="ml-3 myimg"
-            data-name="{{ $product->img }}">
-            <i class="fa fa-trash"></i>Удалить!
-        </a>
-        @else
-        <a href="javascript:removeFile()" style="color: red; text-decoration: none" class="ml-3">
+        <a href="javascript:removeFile()" style="color: red; text-decoration: none" class="ml-3 myimg"
+            data-name="{{ $product->img ?? '' }}">
             <i class="fa fa-trash"></i>Удалить
         </a>
-        @endif
     </p>
     <input type="file" id="file" style="display: none" />
-    <input type="hidden" id="file_name" value="{{ $product->img }}"/>
+    <input type="hidden" name="img" id="file_name" value="{{ $product->img ?? '' }}"/>
     <p class="text-muted text-center"><small>Рекомендуемые размеры: 125х200</small></p>
 </div>

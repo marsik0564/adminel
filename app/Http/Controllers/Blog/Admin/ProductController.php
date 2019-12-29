@@ -10,6 +10,7 @@ use App\Models\Admin\Product;
 use App\Models\Admin\Category;
 use App\SBlog\Core\BlogApp;
 use App\Http\Requests\AdminImageUploadRequest;
+use App\Http\Requests\AdminProductUpdateRequest;
 use App\Http\Requests\AdminProductCreateRequest;
 
 class ProductController extends AdminBaseController
@@ -134,13 +135,36 @@ class ProductController extends AdminBaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\AdminProductUpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminProductUpdateRequest $request, $id)
     {
-        dd(__METHOD__);
+        $product = $this->productRepository->getID($id);
+        if (empty($product)) {
+            return back()
+                ->withErrors(['msg' => "Товар №$id не найден"]);
+        }
+        $data = $request->all();
+        $data['img'] = $request->img ?? '';
+        $data['status'] = $request->status ? '1' : '0';
+        $data['hit'] = $request->hit ? '1' : '0';
+        $save = $product->update($data);
+        
+        if (!empty($save)) {
+            $this->productRepository->editFilter($id, $data);
+            $this->productRepository->editRelatedProduct($id, $data);
+            $this->productRepository->saveGallery($id);
+            \Session::forget('single');
+            return redirect()
+                ->route('blog.admin.products.edit', $id)
+                ->with(['success' => 'Успешно сохранено']);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**

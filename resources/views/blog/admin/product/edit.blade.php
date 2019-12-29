@@ -55,7 +55,8 @@
                                 <label for="price">Цена</label>    
                                 <input type="text" name="price" class="form-control" id="price"
                                     placeholder="Цена" required pattern="^[0-9]+.?[0-9]*$"
-                                    value="{{ $product->price }}" data-error="Допускаются цифры и одна десятичная точка"
+                                    value="{{ $product->price }}" 
+                                    data-error="Допускаются цифры и одна десятичная точка"
                                 />
                                 <div class="help-block with-errors"></div>
                             </div>
@@ -116,7 +117,7 @@
                             <input type="hidden" id="product_id" value="{{ $product->id }}" />
                         </div>
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Редактировать</button>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
                         </div>
                     </form>
                 </div>

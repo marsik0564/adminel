@@ -102,10 +102,9 @@ class ProductRepository extends CoreRepository
         if ($attrs != $filter) {
             //если удалены старые фильтры
             if (!empty(array_diff($filter, $attrs))) {
-                $sql_attrs = '('.implode(',', array_diff($filter, $attrs)).')';
                 \DB::table('attribute_products')
                     ->where('product_id', '=', $id)
-                    ->where('attr_id', 'IN', $sql_attrs)
+                    ->whereIn('attr_id', array_diff($filter, $attrs))
                     ->delete();
             }
             //если добавлены новые фильтры
@@ -132,10 +131,9 @@ class ProductRepository extends CoreRepository
         if ($related_product_new != $related_product_old) {
             //если удалены старые рилейты
             if (!empty(array_diff($related_product_old, $related_product_new))) {
-                $sql_related = '('.implode(',', array_diff($related_product_old, $related_product_new)).')';
                 \DB::table('related_products')
                     ->where('product_id', '=', $id)
-                    ->where('related_id', 'IN', $sql_related)
+                    ->whereIn('related_id', array_diff($related_product_old, $related_product_new))
                     ->delete();
             }
             //если добавлены новые рилейты

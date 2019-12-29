@@ -47,8 +47,8 @@
                 var res = confirm('Подтвердите удаление');
                 if (!res) return false;
                 var $this = $(this);
-                id = $this.data(id);
-                src = $this.data(src);
+                id = $this.data('id');
+                src = $this.data('src');
                 $.ajax({
                     headers : {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
