@@ -217,6 +217,36 @@ class ProductRepository extends CoreRepository
     }
     
     /**
+    * Turn status = 1
+    */
+    
+    public function returnStatusOne($id)
+    {
+        $result = \DB::update("UPDATE products SET status = '1' WHERE id = ?", [$id]);
+        
+        return $result;
+    }
+    
+    /**
+    * Turn status = 0
+    */
+        
+    public function deleteStatusOne($id)
+    {
+        $result = \DB::update("UPDATE products SET status = '0' WHERE id = ?", [$id]);
+        
+        return $result;
+    }
+    
+    /**
+    * Delete gallery img after deleting product
+    */
+    public function deleteImgGalleryFromPath($id)
+    {
+        $galleryImg = DB::table('galleries');
+    }
+    
+    /**
     * Image resize
     */
     public static function resize($target, $dest, $wmax, $hmax, $ext)

@@ -42,21 +42,21 @@
                                             <i class="fa fa-fw fa-eye"></i>
                                         </a>
                                         @if ($product->status == 0)
-                                        <a title="Перевести статус = On" class="delete ml-2"
-                                        href="{{ route('blog.admin.products.destroy', $product->id) }}" 
+                                        <a title="Перевести статус = On" class="ml-2"
+                                        href="{{ route('blog.admin.products.returnstatus', $product->id) }}" 
                                         >
                                             <i class="fa fa-fw fa-refresh"></i>
                                         </a>
                                         @else
-                                        <a title="Перевести статус = Off" class="delete ml-2"
-                                        href="{{ route('blog.admin.products.destroy', $product->id) }}" 
+                                        <a title="Перевести статус = Off" class="ml-2"
+                                        href="{{ route('blog.admin.products.deletestatus', $product->id) }}" 
                                         >
                                             <i class="fa fa-fw fa-close"></i>
                                         </a>
                                         @endif
                                         
-                                        <a title="Удалить из БД" class="deletebd ml-2"
-                                        href="{{ route('blog.admin.products.destroy', $product->id) }}"
+                                        <a title="Удалить из БД" class="delete ml-2"
+                                        href="{{ route('blog.admin.products.deleteproduct', $product->id) }}"
                                         >
                                             <i class="fa fa-fw fa-close text-danger"></i>
                                         </a>
