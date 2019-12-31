@@ -243,7 +243,40 @@ class ProductRepository extends CoreRepository
     */
     public function deleteImgGalleryFromPath($id)
     {
-        $galleryImg = DB::table('galleries');
+        try {
+            $galleryImg = \DB::table('galleries')
+                ->where('product_id', '=', $id)
+                ->pluck('img')
+                ->all();
+
+            $singleImg = \DB::table('products')
+                ->where('id', '=', $id)
+                ->pluck('img')
+                ->all();
+            if (!empty($galleryImg)) {
+                foreach ($galleryImg as $img) {
+                    unlink("uploads/gallery/$img");
+                }
+            }
+            if (!empty($singleImg[0])) {
+                    unlink('uploads/single/' . $singleImg[0]);
+            }
+        } catch (Exception $e) {
+            return null;
+        }
+        return true;
+    }
+    
+    public function deleteFromDB($id)
+    {
+        $related_products = \DB::delete('DELETE FROM related_products WHERE product_id = ?', [$id]);
+        $attr_products = \DB::delete('DELETE FROM attribute_products WHERE product_id = ?', [$id]);
+        $gallery = \DB::delete('DELETE FROM galleries WHERE product_id = ?', [$id]);
+        $product = \DB::delete('DELETE FROM products WHERE id = ?', [$id]);
+        
+        if (!empty($product)) {
+            return true;
+        }
     }
     
     /**

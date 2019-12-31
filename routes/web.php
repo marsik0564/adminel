@@ -62,9 +62,17 @@ Route::group(['middleware' => ['status', 'auth']], function() {
         Route::get('/products/delete-status/{id}', 'ProductController@deleteStatus')
             ->name('blog.admin.products.deletestatus');
         Route::get('/products/delete-product/{id}', 'ProductController@deleteProduct')
-            ->name('blog.admin.products.deleteproduct');   
+            ->name('blog.admin.products.deleteproduct');
+               
         Route::resource('products', 'ProductController')
             ->names('blog.admin.products');
+            
+        Route::get('/filter/group-filter', 'FilterController@groupFilter');
+        Route::get('/filter/group-add', 'FilterController@groupFilterAdd');
+        
+        Route::get('/filter/value-filter', 'FilterController@valueFilter');
+        
+        
     });
 });
 

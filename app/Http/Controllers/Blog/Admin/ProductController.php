@@ -34,7 +34,7 @@ class ProductController extends AdminBaseController
         $products = $this->productRepository->getAllProducts($perpage);
         $count = $products->total();
         
-        Metatag::setTags(['title' => 'Список продуктов']);
+        MetaTag::setTags(['title' => 'Список продуктов']);
         return view('blog.admin.product.index', compact('products', 'count'));
     }
 
@@ -46,7 +46,7 @@ class ProductController extends AdminBaseController
     public function create()
     {
         
-        Metatag::setTags(['title' => 'Создание нового продукта']);
+        MetaTag::setTags(['title' => 'Создание нового продукта']);
         return view('blog.admin.product.create', [
             'categories' => Category::with('children')
                 ->where('parent_id', '=', '0')
@@ -111,7 +111,7 @@ class ProductController extends AdminBaseController
         $related_products = $this->productRepository->getRelatedProducts($id);
         $images = $this->productRepository->getGalleryProduct($id);
         //dd($related_products, $filter);
-        Metatag::setTags(['title' => 'Редактирование продукта №'.$id]);
+        MetaTag::setTags(['title' => 'Редактирование продукта №'.$id]);
         return view('blog.admin.product.edit', compact('product', 'filter', 'related_products', 'images'),[
             'categories' => Category::with('children')
                 ->where('parent_id', '=', '0')
@@ -175,8 +175,13 @@ class ProductController extends AdminBaseController
      
     public function deleteProduct($id)
     {
-        //$img_path = $this->productRepository->deleteImgGalleryFromPath($id);
-        //$db = $this->productRepository->deleteFromDB($id);
+        $img_path = $this->productRepository->deleteImgGalleryFromPath($id);
+        if (!empty($img_path)) {
+            $db = $this->productRepository->deleteFromDB($id);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка удаления картинок']);
+        }
         if (!empty($db)) {
             return redirect()
                 ->route('blog.admin.products.index')
