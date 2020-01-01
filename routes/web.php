@@ -68,7 +68,9 @@ Route::group(['middleware' => ['status', 'auth']], function() {
             ->names('blog.admin.products');
             
         Route::get('/filter/group-filter', 'FilterController@groupFilter');
-        Route::get('/filter/group-add', 'FilterController@groupFilterAdd');
+        Route::match(['get', 'post'], '/filter/group-filter-add', 'FilterController@groupFilterAdd');
+        Route::match(['get', 'post'], '/filter/group-filter-edit/{id}', 'FilterController@groupFilterEdit');
+        Route::get('/filter/group-filter-delete/{id}', 'FilterController@groupFilterDelete');
         
         Route::get('/filter/value-filter', 'FilterController@valueFilter');
         

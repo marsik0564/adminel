@@ -4,9 +4,9 @@
 
     <section class="content-header">
         @component('blog.admin.components.breadcrumbs');
-            @slot('title') Группа фильтров @endslot
+            @slot('title') Группы фильтров @endslot
             @slot('parent') Главная @endslot
-            @slot('active') Группа фильтров @endslot
+            @slot('active') Группы фильтров @endslot
         @endcomponent
     </section>
     <section class="content">
@@ -15,7 +15,7 @@
                 <div class="box">
                     <div class="box-body">
                         <div class="table-responsive">
-                            <a href="{{ url('admin/filter/group-add') }}" class="btn btn-primary my-2">
+                            <a href="{{ url('admin/filter/group-filter-add') }}" class="btn btn-primary my-2">
                                 <i class="fa fa-fw fa-plus"></i>
                                 Добавить группу
                             </a>
@@ -31,11 +31,12 @@
                                 <tr>
                                     <td>{{ $filter_group->id . ' ' . $filter_group->title }}</td>
                                     <td>
-                                        <a href="#" 
+                                        <a href="{{ url('admin/filter/group-filter-edit', $filter_group->id) }}" 
                                             title="Редактировать" >
-                                            <i class="fa fa-fw fa-eye"></i>
+                                            <i class="fa fa-fw fa-pencil"></i>
                                         </a>
-                                        <a href="#" class="ml-2"
+                                        <a href="{{ url('admin/filter/group-filter-delete', $filter_group->id) }}" 
+                                            class="ml-2"
                                             title="Удалить" >
                                             <i class="fa fa-fw fa-close text-danger delete"></i>
                                         </a>

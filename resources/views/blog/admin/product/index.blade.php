@@ -39,7 +39,7 @@
                                     <td class="text-center">
                                         <a href="{{ route('blog.admin.products.edit', $product->id) }}" 
                                             title="Редактировать товар" >
-                                            <i class="fa fa-fw fa-eye"></i>
+                                            <i class="fa fa-fw fa-pencil"></i>
                                         </a>
                                         @if ($product->status == 0)
                                         <a title="Перевести статус = On" class="ml-2"
