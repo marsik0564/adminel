@@ -4,10 +4,10 @@
 
     <section class="content-header">
         @component('blog.admin.components.breadcrumbs');
-            @slot('title') Добавить группу @endslot
+            @slot('title') Редактирование группы @endslot
             @slot('parent') Главная @endslot
             @slot('group_filter') Группы фильтров @endslot
-            @slot('active') Новая группа @endslot
+            @slot('active') Редактирование группы @endslot
         @endcomponent
     </section>
     <section class="content">

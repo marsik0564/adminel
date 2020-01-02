@@ -25,10 +25,9 @@ class FilterGroupRepository extends CoreRepository
         return $groups_filter;
     }
     
-    public function getInfoProduct($id)
+    public function getGroupInfo($id)
     {
-        $product = $this->startConditions()
-            ->find($id);
+        $product = Model::find($id);
             
         return $product;
     }
@@ -42,6 +41,8 @@ class FilterGroupRepository extends CoreRepository
     
     public function getCountGroupFilter()
     {
+        $count = \DB::table('attribute_values')->count();
         
+        return $count;
     }
 }

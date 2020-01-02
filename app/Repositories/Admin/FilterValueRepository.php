@@ -31,13 +31,34 @@ class FilterValueRepository extends CoreRepository
     /**
     * Get all filter values with Group name
     */
-    public function getAllValuesFilter()
+    public function getAllValuesFilter($perpage)
     {
         $values = \DB::table('attribute_values')
             ->join('attribute_groups', 'attribute_groups.id', '=', 'attribute_values.attr_group_id')
             ->select('attribute_values.*', 'attribute_groups.title')
-            ->paginate(10);
+            ->paginate($perpage);
             
         return $values;
+    }
+    
+    /**
+    * Get filter values with Group name by id
+    */
+    
+    public function getValueInfo($id)
+    {
+        $value = Model::find($id);
+            
+        return $value;
+    }
+    
+    /**
+    * Checking for unique name in same group
+    */
+    public function checkUnique($name, $id)
+    {
+        $unique = Model::where([['value', '=', $name], ['attr_group_id', '=', $id]])->first();
+        
+        return $unique;
     }
 }

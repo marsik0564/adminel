@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BlogGroupFilterAddRequest extends FormRequest
+class BlogValueFilterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +25,7 @@ class BlogGroupFilterAddRequest extends FormRequest
     {
         return [
             'title' => 'min:4|max:25',
+            'attr_group_id' => 'integer'
         ];
     }
     
@@ -33,6 +34,7 @@ class BlogGroupFilterAddRequest extends FormRequest
         return [
             'title.min' => 'Минимальная длина названия 4 символа',
             'title.max' => 'Максимальная длина названия 25 символов',
+            'attr_group_id' => 'Номер группы должен быть натуральным числом'
         ];
     }
 }

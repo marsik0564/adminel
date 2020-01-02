@@ -73,7 +73,9 @@ Route::group(['middleware' => ['status', 'auth']], function() {
         Route::get('/filter/group-filter-delete/{id}', 'FilterController@groupFilterDelete');
         
         Route::get('/filter/value-filter', 'FilterController@valueFilter');
-        
+        Route::match(['get', 'post'], '/filter/value-filter-add', 'FilterController@valueFilterAdd');
+        Route::match(['get', 'post'], '/filter/value-filter-edit/{id}', 'FilterController@valueFilterEdit');
+        Route::get('/filter/value-filter-delete/{id}', 'FilterController@valueFilterDelete');
         
     });
 });

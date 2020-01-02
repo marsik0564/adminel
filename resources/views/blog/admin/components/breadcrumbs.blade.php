@@ -19,7 +19,7 @@
         <li><a href="{{ url('/admin/filter/group-filter') }}"><i></i>{{ $group_filter }}</a></li>
     @endif
     @if (isset($attr_filter))
-        <li><a href="#"><i></i>{{ $attr_filter }}</a></li>
+        <li><a href="{{ url('/admin/filter/value-filter') }}"><i></i>{{ $attr_filter }}</a></li>
     @endif
     @if (isset($currency))
         <li><a href="#"><i></i>{{ $currency }}</a></li>
