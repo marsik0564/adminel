@@ -61,4 +61,11 @@ class FilterValueRepository extends CoreRepository
         
         return $unique;
     }
+    
+    public function deleteValueFilter($id)
+    {
+        $delete = $this->startConditions()->where('id', '=', $id)->forceDelete();
+        
+        return $delete;
+    }
 }

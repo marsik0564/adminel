@@ -188,22 +188,15 @@ class FilterController extends AdminBaseController
     */
     
     public function valueFilterDelete($id)
-    {
-       /* $count = $this->filterValueRepository->getCountFilterValuesById($id);
-        
-        if ($count > 0) {
-                return back()
-                    ->withErrors(['msg' => 'Ошибка удаления, нельзя удалить группу с атрибутами']);
-            }
-            
-        $delete = $this->filterGroupRepository->deleteGroupFilter($id);
+    {   
+        $delete = $this->filterValueRepository->deleteValueFilter($id);
         
         if (!empty($delete)) {
-            return redirect('/admin/filter/group-filter')
+            return redirect('/admin/filter/value-filter')
                 ->with(['success' => 'Успешно удалено']);
         } else {
             return back()
                 ->withErrors(['msg' => 'Ошибка удаления']);
-        }*/
+        }
     }
 }

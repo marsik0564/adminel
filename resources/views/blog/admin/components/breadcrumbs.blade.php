@@ -22,7 +22,7 @@
         <li><a href="{{ url('/admin/filter/value-filter') }}"><i></i>{{ $attr_filter }}</a></li>
     @endif
     @if (isset($currency))
-        <li><a href="#"><i></i>{{ $currency }}</a></li>
+        <li><a href="{{ route('blog.admin.currencies.index') }}"><i></i>{{ $currency }}</a></li>
     @endif
     <li><i class="active"></i>{{ $active }}</li>
 </ol>

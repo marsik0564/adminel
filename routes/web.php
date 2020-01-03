@@ -77,6 +77,8 @@ Route::group(['middleware' => ['status', 'auth']], function() {
         Route::match(['get', 'post'], '/filter/value-filter-edit/{id}', 'FilterController@valueFilterEdit');
         Route::get('/filter/value-filter-delete/{id}', 'FilterController@valueFilterDelete');
         
+        Route::resource('currencies', 'CurrencyController')
+            ->names('blog.admin.currencies');
     });
 });
 

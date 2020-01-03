@@ -210,9 +210,9 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="">Список валют</a></li>
+                                    <a href="{{ route('blog.admin.currencies.index') }}">Список валют</a></li>
                                 <li>
-                                    <a href="">Добавить валюту</a></li>
+                                    <a href="{{ route('blog.admin.currencies.create') }}">Добавить валюту</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
