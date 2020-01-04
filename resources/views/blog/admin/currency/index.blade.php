@@ -43,7 +43,7 @@
                                             title="Редактировать" >
                                             <i class="fa fa-fw fa-edit"></i>
                                         </a>
-                                        <a href="{{ route('blog.admin.currencies.destroy', $currency->id) }}" 
+                                        <a href="{{ route('blog.admin.currencies.delete-currency', $currency->id) }}" 
                                             class="ml-2"
                                             title="Удалить" >
                                             <i class="fa fa-fw fa-close text-danger delete"></i>

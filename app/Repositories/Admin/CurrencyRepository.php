@@ -27,4 +27,16 @@ class CurrencyRepository extends CoreRepository
         
         return $currency;
     }
+    
+    public function switchBaseCurrency()
+    {
+        Model::where('base', '=', '1')->update(['base' => '0']);
+    }
+    
+    public function getCurrencyById($id)
+    {
+        $currency = $this->startConditions()->find($id);
+        
+        return $currency;
+    }
 }

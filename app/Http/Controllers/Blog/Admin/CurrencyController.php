@@ -39,7 +39,8 @@ class CurrencyController extends AdminBaseController
      */
     public function create()
     {
-        //
+        MetaTag::setTags(['title' => 'Добавление валюты']);
+        return view('blog.admin.currency.create');
     }
 
     /**
@@ -50,7 +51,25 @@ class CurrencyController extends AdminBaseController
      */
     public function store(AdminCurrencyRequest $request)
     {
-        //
+        $data = $request->input();
+        $data['base'] = $request->base ? '1' : '0';
+        
+        if ($data['base'] == '1') {
+            $this->currencyRepository->switchBaseCurrency();
+        }
+        
+        $currency = (new Currency())->create($data);
+        $save = $currency->save();
+        
+        if (!empty($save)) {
+            return redirect()
+                ->route('blog.admin.currencies.index')
+                ->with(['success' => "Успешно сохранено"]);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**
@@ -72,7 +91,10 @@ class CurrencyController extends AdminBaseController
      */
     public function edit($id)
     {
-        //
+        $currency = $this->currencyRepository->getCurrencyById($id);
+        
+        MetaTag::setTags(['title' => 'Редактирование валюты']);
+        return view('blog.admin.currency.edit', compact('currency'));
     }
 
     /**
@@ -84,7 +106,7 @@ class CurrencyController extends AdminBaseController
      */
     public function update(AdminCurrencyRequest $request, $id)
     {
-        //
+        dd($request->input());
     }
 
     /**
@@ -96,5 +118,10 @@ class CurrencyController extends AdminBaseController
     public function destroy($id)
     {
         //
+    }
+    
+    public function deleteCurrency($id)
+    {
+        dd($id);
     }
 }
