@@ -76,12 +76,14 @@ Route::group(['middleware' => ['status', 'auth']], function() {
         Route::match(['get', 'post'], '/filter/value-filter-add', 'FilterController@valueFilterAdd');
         Route::match(['get', 'post'], '/filter/value-filter-edit/{id}', 'FilterController@valueFilterEdit');
         Route::get('/filter/value-filter-delete/{id}', 'FilterController@valueFilterDelete');
-        
-        
-        Route::get('/currencies/delete-currency/{id}', 'CurrencyController@deleteCurrency')
+               
+        Route::get('/currencies/delete-currency/{id}', 'CurrencyController@delete')
             ->name('blog.admin.currencies.delete-currency');
         Route::resource('currencies', 'CurrencyController')
             ->names('blog.admin.currencies');
+            
+        Route::get('/search/result', 'SearchController@index');
+        Route::get('/autocomplete', 'SearchController@search');
     });
 });
 

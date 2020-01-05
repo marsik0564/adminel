@@ -39,4 +39,13 @@ class CurrencyRepository extends CoreRepository
         
         return $currency;
     }
+    
+    public function deleteCurrency($id)
+    {
+        $delete = $this->startConditions()
+            ->where('id', '=', $id)
+            ->forceDelete();
+            
+        return $delete;
+    }
 }

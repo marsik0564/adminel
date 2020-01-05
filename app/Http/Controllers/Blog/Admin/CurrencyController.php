@@ -106,7 +106,28 @@ class CurrencyController extends AdminBaseController
      */
     public function update(AdminCurrencyRequest $request, $id)
     {
-        dd($request->input());
+        $currency = Currency::find($id); 
+        if (empty($currency)) {
+            return back()
+                ->withErrors(['msg' => "Запись N$id не найдена"])
+                ->withInput;
+        }    
+        
+        $data = $request->all();        
+        $data['base'] = $request->base ? '1' : '0';
+        if ($data['base'] == '1' && $currency->base == '0') {
+            $this->currencyRepository->switchBaseCurrency();
+        }
+        $result = $currency->update($data);
+        
+        if (!empty($result)) {
+            return redirect()
+                ->route('blog.admin.currencies.edit', $id)
+                ->with(['success' => "Успешно сохранено"]);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка сохранения']);
+        }
     }
 
     /**
@@ -120,8 +141,16 @@ class CurrencyController extends AdminBaseController
         //
     }
     
-    public function deleteCurrency($id)
-    {
-        dd($id);
+    public function delete($id)
+    { 
+        $delete = $this->currencyRepository->deleteCurrency($id);
+        if (!empty($delete)) {
+            return redirect()
+            ->route('blog.admin.currencies.index')
+            ->with(['success' => "Запись №$id удалена"]);
+        } else {
+            return back()
+            ->withErrors(['msg' => 'Ошибка удаления']);
+        }
     }
 }
