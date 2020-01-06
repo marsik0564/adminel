@@ -97,7 +97,8 @@ class ProductRepository extends CoreRepository
             ->where('product_id', '=', $id)
             ->pluck('attr_id')
             ->toArray();
-        $attrs = array_values($data['atrrs']);  
+        
+        $attrs = array_values($data['atrrs'] ?? []);  
           
         if ($attrs != $filter) {
             //если удалены старые фильтры
@@ -127,7 +128,7 @@ class ProductRepository extends CoreRepository
             ->pluck('related_id')
             ->toArray();
             
-        $related_product_new = $data['related'];
+        $related_product_new = $data['related'] ?? [];
         if ($related_product_new != $related_product_old) {
             //если удалены старые рилейты
             if (!empty(array_diff($related_product_old, $related_product_new))) {

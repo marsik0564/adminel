@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Metatag;
+use MetaTag;
 
-class SearchController extends BaseController
+class SearchController extends AdminBaseController
 {    
     /**
     * Show result of search
@@ -31,8 +31,14 @@ class SearchController extends BaseController
     /**
     * For Ajax search
     */
-    public function search()
+    public function search(Request $request)
     {
-        
+        $search = $request->get('term');
+         
+        $result = \DB::table('products')
+            ->where('title', 'LIKE', '%' . $search . '%')
+            ->pluck('title');
+            
+        return response()->json($result);
     }
 }

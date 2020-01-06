@@ -232,7 +232,8 @@
                         </li>
                     </ul>
                     <!-- search form -->
-                    <form action="" method="get" autocomplete="off"  style="position: absolute;">
+                    <form action="{{ url('/admin/search/result') }}" method="get" 
+                    autocomplete="off"  style="position: absolute;">
                         <div class="input-group">
                             <input id="search" name="search" type="text" class="form-control" 
                             placeholder="Живой поиск...." 
@@ -266,8 +267,19 @@
         </div>
         <!-- ./wrapper -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js">
+        </script>
         <script>
             var pathd = '{{PATH}}';
+            var route = "{{ url('/admin/autocomplete') }}";
+            $('#search').typeahead({
+                source : function(term, process) {
+                    console.log(term);
+                    return $.get(route, { term: term }, function (data) {
+                        return process(data);
+                    });
+                }
+            });
         </script>
         <!-- jQuery 3 -->
         <script src="{{asset('vendor/jquery/jquery.min.js')}}"> </script>

@@ -12,9 +12,9 @@
     <div class="prdt">
         <div class="container">
             <div class="prdt-top">
-                <div class="col-md-9 prdt-left">
+                <div class="prdt-left">
                     @if (!empty($products))
-                    <div class="product-one">
+                    <div class="product-one row">
                         @foreach ($products as $product)
                         <div class="col-md-4 product-left p-left">
                             <div class="product-main simleCart_shelfItem">
