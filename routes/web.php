@@ -24,48 +24,48 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['status', 'auth']], function() {
     
     $groupData = [
-        'namespace' => 'Blog\Admin',
+        'namespace' => 'Market\Admin',
         'prefix'    => 'admin',
     ];
     
     Route::group($groupData, function() {
         Route::resource('index', 'MainController')
-            ->names('blog.admin.index');
+            ->names('market.admin.index');
             
         Route::resource('orders', 'OrderController')
-            ->names('blog.admin.orders');     
+            ->names('market.admin.orders');     
         Route::get('/orders/change/{id}', 'OrderController@change')
-            ->name('blog.admin.orders.change');        
+            ->name('market.admin.orders.change');        
         Route::post('/orders/save/{id}', 'OrderController@save')
-            ->name('blog.admin.orders.save');           
+            ->name('market.admin.orders.save');           
         Route::get('/orders/forcedestroy/{id}', 'OrderController@forceDestroy')
-            ->name('blog.admin.orders.forcedestroy'); 
+            ->name('market.admin.orders.forcedestroy'); 
         
         Route::get('/categories/mydel','CategoryController@mydel')
-            ->name('blog.admin.categories.mydel');
+            ->name('market.admin.categories.mydel');
         Route::resource('categories', 'CategoryController')
-            ->names('blog.admin.categories');
+            ->names('market.admin.categories');
             
         Route::resource('users', 'UserController')
-            ->names('blog.admin.users');
+            ->names('market.admin.users');
             
             
         Route::get('/products/related','ProductController@related');  
         Route::match(['get', 'post'], '/products/ajax-image-upload', 'ProductController@ajaxImageUpload');
         Route::delete('/products/ajax-image-remove/{filename}', 'ProductController@ajaxImageRemove');
         Route::post('/products/gallery', 'ProductController@ajaxGalleryUpload')
-            ->name('blog.admin.products.gallery');
+            ->name('market.admin.products.gallery');
         Route::post('/products/delete-gallery', 'ProductController@ajaxGalleryDelete')
-            ->name('blog.admin.products.deletegallery');
+            ->name('market.admin.products.deletegallery');
         Route::get('/products/return-status/{id}', 'ProductController@returnStatus')
-            ->name('blog.admin.products.returnstatus');
+            ->name('market.admin.products.returnstatus');
         Route::get('/products/delete-status/{id}', 'ProductController@deleteStatus')
-            ->name('blog.admin.products.deletestatus');
+            ->name('market.admin.products.deletestatus');
         Route::get('/products/delete-product/{id}', 'ProductController@deleteProduct')
-            ->name('blog.admin.products.deleteproduct');
+            ->name('market.admin.products.deleteproduct');
                
         Route::resource('products', 'ProductController')
-            ->names('blog.admin.products');
+            ->names('market.admin.products');
             
         Route::get('/filter/group-filter', 'FilterController@groupFilter');
         Route::match(['get', 'post'], '/filter/group-filter-add', 'FilterController@groupFilterAdd');
@@ -78,13 +78,13 @@ Route::group(['middleware' => ['status', 'auth']], function() {
         Route::get('/filter/value-filter-delete/{id}', 'FilterController@valueFilterDelete');
                
         Route::get('/currencies/delete-currency/{id}', 'CurrencyController@delete')
-            ->name('blog.admin.currencies.delete-currency');
+            ->name('market.admin.currencies.delete-currency');
         Route::resource('currencies', 'CurrencyController')
-            ->names('blog.admin.currencies');
+            ->names('market.admin.currencies');
             
         Route::get('/search/result', 'SearchController@index');
         Route::get('/autocomplete', 'SearchController@search');
     });
 });
 
-Route::get('user/index', 'Blog\User\MainController@index');
+Route::get('user/index', 'Market\User\MainController@index');

@@ -42,7 +42,7 @@
 
             <header class="main-header">
                 <!-- Logo -->
-                <a href="{{route('blog.admin.index.index')}}" class="logo">
+                <a href="{{route('market.admin.index.index')}}" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini">
                         <b>A</b>LT</span>
@@ -78,7 +78,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="{{route('blog.admin.users.edit', Auth::user()->id)}}" 
+                                            <a href="{{route('market.admin.users.edit', Auth::user()->id)}}" 
                                             class="btn btn-default btn-flat">Профиль</a>
                                         </div>
                                         <div class="pull-right">
@@ -126,11 +126,11 @@
                                 <i class="fa fa-home"></i>
                                 <span>В магазин</span></a></li>
                         <li>
-                            <a href="{{ route('blog.admin.index.index') }}">
+                            <a href="{{ route('market.admin.index.index') }}">
                                 <i class="fa fa-user"></i>
                                 <span>Главная админки</span></a></li>
                         <li>
-                            <a href="{{ route('blog.admin.orders.index') }}">
+                            <a href="{{ route('market.admin.orders.index') }}">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Заказы</span></a></li>
                         <li class="treeview">
@@ -143,12 +143,12 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="{{ route('blog.admin.categories.index') }}">
+                                    <a href="{{ route('market.admin.categories.index') }}">
                                         Список категорий
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('blog.admin.categories.create') }}">
+                                    <a href="{{ route('market.admin.categories.create') }}">
                                         Добавить категорию
                                     </a>
                                 </li>
@@ -164,12 +164,12 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="{{ route('blog.admin.products.index') }}">
+                                    <a href="{{ route('market.admin.products.index') }}">
                                         Список товаров
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('blog.admin.products.create') }}">
+                                    <a href="{{ route('market.admin.products.create') }}">
                                         Добавить товар
                                     </a>
                                 </li>
@@ -189,12 +189,12 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="{{ route('blog.admin.users.index') }}">
+                                    <a href="{{ route('market.admin.users.index') }}">
                                         Список пользователей
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('blog.admin.users.create') }}">
+                                    <a href="{{ route('market.admin.users.create') }}">
                                         Добавить пользователя
                                     </a>
                                 </li>
@@ -210,9 +210,9 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="{{ route('blog.admin.currencies.index') }}">Список валют</a></li>
+                                    <a href="{{ route('market.admin.currencies.index') }}">Список валют</a></li>
                                 <li>
-                                    <a href="{{ route('blog.admin.currencies.create') }}">Добавить валюту</a></li>
+                                    <a href="{{ route('market.admin.currencies.create') }}">Добавить валюту</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -252,7 +252,7 @@
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <main id="app">
-                    @include('blog.admin.components.result_messages')
+                    @include('market.admin.components.result_messages')
                     @yield('content')
                 </main>
             </div>
@@ -299,8 +299,8 @@
         <script src="{{asset('js/ajaxupload.js')}}"></script>
         <!-- === = ===  -->
         <script src="{{asset('js/my.js')}}"></script>
-        @include('blog.admin.product.include.script_related_products')
-        @include('blog.admin.product.include.script_img')
-        @include('blog.admin.product.include.script_gallery')
+        @include('market.admin.product.include.script_related_products')
+        @include('market.admin.product.include.script_img')
+        @include('market.admin.product.include.script_gallery')
     </body>
 </html>

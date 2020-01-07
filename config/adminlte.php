@@ -179,9 +179,9 @@ return [
             'topnav' => true,
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text' => 'market',
+            'url'  => 'admin/market',
+            'can'  => 'manage-market',
         ],
         [
             'text'        => 'pages',
